@@ -169,7 +169,7 @@ export function ActivityTimeline({
             <div className="flex items-center gap-2">
               <Activity className="h-5 w-5 text-blue-400" />
               <CardDescription className="text-neutral-300 font-medium">
-                AI Activity Timeline
+                Linha do tempo de atividades da IA
               </CardDescription>
             </div>
             <button
@@ -224,13 +224,13 @@ export function ActivityTimeline({
                   <div className="flex items-center gap-2 p-2 rounded-lg bg-neutral-800/30 border border-neutral-700/30">
                     <Loader2 className="h-4 w-4 animate-spin text-blue-400" />
                     <div className="text-sm text-neutral-400">
-                      AI is processing...
+                      IA está processando...
                     </div>
                   </div>
                 )}
                 {processedEvents.length === 0 && !isLoading && (
                   <div className="text-center py-4 text-neutral-500 text-sm">
-                    Activity will appear here as the AI processes your request
+                    Atividaddes aparecerão aqui conforme a IA processa sua solicitação
                   </div>
                 )}
               </div>

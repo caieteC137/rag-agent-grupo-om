@@ -48,7 +48,7 @@ function BackendLoadingScreen() {
       <div className="w-full max-w-2xl z-10 bg-neutral-900/50 backdrop-blur-md p-8 rounded-2xl border border-neutral-700 shadow-2xl shadow-black/60">
         <div className="text-center space-y-6">
           <h1 className="text-4xl font-bold text-white flex items-center justify-center gap-3">
-            ✨ AI Goal Planning Assistant 🚀
+            ✨ Chat Grupo OM 🚀
           </h1>
 
           <div className="flex flex-col items-center space-y-4">
@@ -66,10 +66,10 @@ function BackendLoadingScreen() {
 
             <div className="space-y-2">
               <p className="text-xl text-neutral-300">
-                Waiting for backend to be ready...
+                Esperando o site estar pronto...
               </p>
               <p className="text-sm text-neutral-400">
-                This may take a moment on first startup
+                Isso pode levar alguns momentos na primeira inicialização, mas não se preocupe, estamos cuidando de tudo para você!
               </p>
             </div>
 
@@ -108,9 +108,9 @@ function BackendErrorScreen({ onRetry }: { onRetry: () => Promise<boolean> }) {
   return (
     <div className="flex-1 flex flex-col items-center justify-center p-4">
       <div className="text-center space-y-4">
-        <h2 className="text-2xl font-bold text-red-400">Backend Unavailable</h2>
+        <h2 className="text-2xl font-bold text-red-400">Backend Indisponível</h2>
         <p className="text-neutral-300">
-          Unable to connect to backend services
+          Não foi possível conectar aos serviços do backend
         </p>
         <button
           onClick={handleRetry}

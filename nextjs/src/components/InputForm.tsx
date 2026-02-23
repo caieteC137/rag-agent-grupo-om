@@ -43,8 +43,8 @@ export function InputForm({
 
   const placeholderText =
     context === "chat"
-      ? "Add more details, ask questions, or request changes..."
-      : "What goal would you like to achieve? e.g., Build a mobile app, Plan a marketing campaign, Learn a new skill...";
+      ? "Adicione mais detalhes, refine sua pergunta ou solicite informações específicas sobre a empresa selecionada..."
+      : "Sobre qual empresa do grupo você gostaria de pesquisar? Ex: serviços oferecidos, políticas internas, processos operacionais ou informações estratégicas...";
 
   return (
     <div className="w-full">
@@ -52,11 +52,10 @@ export function InputForm({
         <div
           className={`
           relative flex items-end gap-3 p-3 rounded-2xl border transition-all duration-200
-          ${
-            isFocused
+          ${isFocused
               ? "border-emerald-400/50 bg-slate-800/80 shadow-lg shadow-emerald-500/10"
               : "border-slate-700/50 bg-slate-800/50 hover:border-slate-600/50"
-          }
+            }
           backdrop-blur-sm
         `}
         >
@@ -111,13 +110,13 @@ export function InputForm({
             {isLoading ? (
               <>
                 <Loader2 className="h-4 w-4 animate-spin" />
-                <span className="hidden sm:inline">Planning...</span>
+                <span className="hidden sm:inline">Pensando...</span>
               </>
             ) : (
               <>
                 <Send className="h-4 w-4" />
                 <span className="hidden sm:inline">
-                  {context === "chat" ? "Send" : "Plan Goal"}
+                  {context === "chat" ? "Enviar" : "Elaborar resposta"}
                 </span>
               </>
             )}

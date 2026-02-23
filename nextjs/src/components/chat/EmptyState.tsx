@@ -24,16 +24,17 @@ export function EmptyState(): React.JSX.Element {
               <CheckCircle className="w-6 h-6 text-purple-500" />
             </div>
           </div>
-          <h1 className="text-4xl font-bold text-white">AI Goal Planner</h1>
+          <h1 className="text-4xl font-bold text-white">Chat do Grupo OM</h1>
           <p className="text-xl text-neutral-300">Powered by Google Gemini</p>
         </div>
 
         {/* Description */}
         <div className="space-y-4">
           <p className="text-lg text-neutral-400 max-w-2xl mx-auto">
-            Transform your goals into actionable plans with structured task
-            breakdown, clear priorities, and step-by-step guidance to achieve
-            success.
+            Responda às suas perguntas de forma clara e objetiva,
+            buscando informações relevantes e entregando orientações organizadas,
+            práticas e fáceis de aplicar, sempre baseadas nos dados encontrados para ajudar você a tomar decisões com segurança.
+
           </p>
         </div>
 
@@ -43,46 +44,46 @@ export function EmptyState(): React.JSX.Element {
             <div className="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center mx-auto">
               <Target className="w-6 h-6 text-green-500" />
             </div>
-            <h3 className="font-semibold text-green-400">Goal Planning</h3>
+            <h3 className="font-semibold text-green-400">Pesquisa por Empresa</h3>
             <p className="text-sm text-neutral-400">
-              Strategic breakdown and clear roadmap creation
+              Acesse informações organizadas sobre as quatro empresas do grupo de forma rápida e centralizada.
             </p>
           </div>
           <div className="space-y-3">
             <div className="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center mx-auto">
               <ListChecks className="w-6 h-6 text-blue-500" />
             </div>
-            <h3 className="font-semibold text-blue-400">Task Breakdown</h3>
+            <h3 className="font-semibold text-blue-400">Busca Inteligente</h3>
             <p className="text-sm text-neutral-400">
-              Organized tasks and subtasks with priorities
+              Selecione a empresa desejada e encontre dados relevantes diretamente na base de conhecimento correspondente.
             </p>
           </div>
           <div className="space-y-3">
             <div className="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center mx-auto">
               <CheckCircle className="w-6 h-6 text-purple-500" />
             </div>
-            <h3 className="font-semibold text-purple-400">Achievement Path</h3>
+            <h3 className="font-semibold text-purple-400">Respostas Confiáveis</h3>
             <p className="text-sm text-neutral-400">
-              Clear steps and milestones to reach your goals
+              Receba respostas claras e contextualizadas, baseadas exclusivamente nos documentos internos da empresa selecionada.
             </p>
           </div>
         </div>
 
         {/* Try asking about section */}
         <div className="space-y-4">
-          <p className="text-neutral-400">Try asking about:</p>
+          <p className="text-neutral-400">Experimente perguntar sobre:</p>
           <div className="flex flex-wrap gap-2 justify-center">
             <span className="px-3 py-1 bg-slate-700/50 text-slate-300 rounded-full text-sm">
-              Goal setting strategies
+              Políticas e normas internas
             </span>
             <span className="px-3 py-1 bg-slate-700/50 text-slate-300 rounded-full text-sm">
-              Project planning methods
+              Processos e fluxos operacionais
             </span>
             <span className="px-3 py-1 bg-slate-700/50 text-slate-300 rounded-full text-sm">
-              Task prioritization
+              Processos e fluxos operacionais
             </span>
             <span className="px-3 py-1 bg-slate-700/50 text-slate-300 rounded-full text-sm">
-              Achievement milestones
+              Informações sobre produtos e serviços
             </span>
           </div>
         </div>

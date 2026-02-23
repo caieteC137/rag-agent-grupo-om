@@ -281,7 +281,7 @@ function processThoughts(
         onEventUpdate(aiMessageId, {
           title: section.title
             ? `🤔 ${section.title}`
-            : `🤔 ${agent} is thinking...`,
+            : `🤔 ${agent} está pensando...`,
           data: { type: "thinking", content: section.content },
         });
       });

@@ -138,8 +138,8 @@ export function MessageItem({
             <Loader2 className="h-4 w-4 animate-spin text-emerald-400" />
             <span className="text-sm text-slate-400">
               {message.content
-                ? "🚀 Still processing..."
-                : "🤔 Thinking and planning..."}
+                ? "🚀 Ainda processando..."
+                : "🤔 Pensando e pesquisando..."}
             </span>
           </div>
         </div>
