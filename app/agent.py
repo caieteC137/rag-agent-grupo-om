@@ -5,12 +5,20 @@ from google.adk.agents import LlmAgent
 from google.adk.planners import BuiltInPlanner
 
 from app.config import config
+from app.tools.get_corpus_info import get_corpus_info
+from app.tools.list_corpora import list_corpora
+from app.tools.rag_query import rag_query
 
 # --- ROOT AGENT DEFINITION ---
 root_agent = LlmAgent(
     name=config.internal_agent_name,
     model=config.model,
     description="A specialized RAG agent for querying and managing Vertex AI document corpora. Retrieves accurate, grounded answers from indexed documents.",
+    tools=[
+        get_corpus_info,
+        list_corpora,
+        rag_query,
+    ],
     planner=BuiltInPlanner(
         thinking_config=genai_types.ThinkingConfig(include_thoughts=True)
     ),

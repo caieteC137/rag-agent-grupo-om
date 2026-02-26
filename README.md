@@ -83,7 +83,7 @@ GOOGLE_CLOUD_STAGING_BUCKET=my-staging-bucket
 
 # Optional
 MODEL=gemini-2.5-flash
-AGENT_NAME=goal-planning-agent
+AGENT_NAME=rag-grupo-om
 EXTRA_PACKAGES=./app
 REQUIREMENTS_FILE=.requirements.txt
 ```

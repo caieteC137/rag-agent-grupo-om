@@ -141,7 +141,7 @@ def deploy_agent_engine_app() -> agent_engines.AgentEngine:
     agent_config = {
         "agent_engine": agent_engine,
         "display_name": deployment_config.agent_name,
-        "description": "A simple goal planning agent",
+        "description": "A specialized RAG agent for querying and managing Vertex AI document corpora",
         "extra_packages": deployment_config.extra_packages,
         "env_vars": env_vars,
         "requirements": requirements,

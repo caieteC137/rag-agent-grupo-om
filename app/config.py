@@ -35,6 +35,14 @@ def load_environment_variables() -> None:
 # STEP 2: Basic Configuration
 # =============================================================================
 
+# RAG settings
+DEFAULT_CHUNK_SIZE = 512
+DEFAULT_CHUNK_OVERLAP = 100
+DEFAULT_TOP_K = 3
+DEFAULT_DISTANCE_THRESHOLD = 0.5
+DEFAULT_EMBEDDING_MODEL = "publishers/google/models/text-embedding-005"
+DEFAULT_EMBEDDING_REQUESTS_PER_MIN = 1000
+
 
 @dataclass
 class AgentConfiguration:
@@ -186,7 +194,8 @@ def get_deployment_config() -> DeploymentConfiguration:
         )
 
     # Check requirements file exists
-    requirements_file = os.environ.get("REQUIREMENTS_FILE", ".requirements.txt")
+    requirements_file = os.environ.get(
+        "REQUIREMENTS_FILE", ".requirements.txt")
     if not Path(requirements_file).exists():
         raise ValueError(
             f"❌ Requirements file not found: {requirements_file}\n"
