@@ -22,22 +22,22 @@ export function ChatHeader(): React.JSX.Element {
 
   return (
     <div className="relative z-10 flex-shrink-0 border-b border-slate-700/50 bg-slate-800/80 backdrop-blur-sm">
-      <div className="max-w-5xl mx-auto w-full flex justify-between items-center p-4">
+      <div className="max-w-5xl mx-auto w-full flex flex-col sm:flex-row sm:justify-between sm:items-center p-2 sm:p-4 gap-2 sm:gap-4">
         {/* Left side - App branding */}
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-full flex items-center justify-center shadow-md">
-            <Bot className="h-4 w-4 text-white" />
+        <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1 overflow-hidden">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-full flex items-center justify-center shadow-md flex-shrink-0">
+            <Bot className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
           </div>
-          <div>
-            <h1 className="text-lg font-semibold text-slate-100">
+          <div className="min-w-0 flex-1 overflow-hidden">
+            <h1 className="text-base sm:text-lg font-semibold text-slate-100 truncate">
               Converse com o Agent de IA do Grupo OM
             </h1>
-            <p className="text-xs text-slate-400">Powered by Google Gemini</p>
+            <p className="text-xs text-slate-400 hidden sm:block truncate">Powered by Google Gemini</p>
           </div>
         </div>
 
-        {/* Right side - User controls */}
-        <div className="flex items-center gap-4">
+        {/* Right side - User controls - Stack vertically on small screens */}
+        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 flex-shrink-0">
           {/* User ID Management */}
           <UserIdInput
             currentUserId={userId}

@@ -38,8 +38,8 @@ export function MessageItem({
   // Human message rendering
   if (message.type === "human") {
     return (
-      <div className="flex items-start justify-end gap-3 max-w-[85%] ml-auto">
-        <div className="bg-gradient-to-br from-blue-600 to-blue-700 text-white p-4 rounded-2xl rounded-tr-sm shadow-lg border border-blue-500/20">
+      <div className="flex items-start gap-2 sm:gap-3 max-w-[95%] sm:max-w-[85%] ml-auto">
+        <div className="bg-gradient-to-br from-blue-600 to-blue-700 text-white p-2 sm:p-4 rounded-2xl rounded-tr-sm shadow-lg border border-blue-500/20">
           <ReactMarkdown
             components={{
               ...mdComponents,
@@ -95,8 +95,8 @@ export function MessageItem({
             {message.content}
           </ReactMarkdown>
         </div>
-        <div className="flex-shrink-0 w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center shadow-md border border-blue-500/30">
-          <User className="h-4 w-4 text-white" />
+        <div className="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 bg-blue-600 rounded-full flex items-center justify-center shadow-md border border-blue-500/30">
+          <User className="h-3 w-3 sm:h-4 sm:w-4 text-white" />
         </div>
       </div>
     );
@@ -112,12 +112,12 @@ export function MessageItem({
   // Show this when loading AND we have timeline events (even if content started arriving)
   if (isLoading && hasTimelineEvents) {
     return (
-      <div className="flex items-start gap-3 max-w-[90%]">
-        <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-full flex items-center justify-center shadow-md border border-emerald-400/30">
-          <Bot className="h-4 w-4 text-white" />
+      <div className="flex items-start gap-2 sm:gap-3 max-w-[95%] sm:max-w-[90%]">
+        <div className="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-full flex items-center justify-center shadow-md border border-emerald-400/30">
+          <Bot className="h-3 w-3 sm:h-4 sm:w-4 text-white" />
         </div>
 
-        <div className="flex-1 bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700/50 rounded-2xl rounded-tl-sm p-4 shadow-lg">
+        <div className="flex-1 bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700/50 rounded-2xl rounded-tl-sm p-2 sm:p-4 shadow-lg">
           {/* Activity Timeline during thinking */}
           {hasTimelineEvents && (
             <ActivityTimeline
@@ -152,12 +152,12 @@ export function MessageItem({
     // If we have timeline events, show them even without content
     if (hasTimelineEvents) {
       return (
-        <div className="flex items-start gap-3 max-w-[90%]">
-          <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-full flex items-center justify-center shadow-md border border-emerald-400/30">
-            <Bot className="h-4 w-4 text-white" />
+        <div className="flex items-start gap-2 sm:gap-3 max-w-[95%] sm:max-w-[90%]">
+          <div className="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-full flex items-center justify-center shadow-md border border-emerald-400/30">
+            <Bot className="h-3 w-3 sm:h-4 sm:w-4 text-white" />
           </div>
 
-          <div className="flex-1 bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700/50 rounded-2xl rounded-tl-sm p-4 shadow-lg">
+          <div className="flex-1 bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700/50 rounded-2xl rounded-tl-sm p-2 sm:p-4 shadow-lg">
             <ActivityTimeline
               processedEvents={messageEvents.get(message.id) || []}
               isLoading={isLoading}
@@ -174,9 +174,9 @@ export function MessageItem({
 
     // Otherwise show no content indicator
     return (
-      <div className="flex items-start gap-3 max-w-[90%]">
-        <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-full flex items-center justify-center shadow-md border border-emerald-400/30">
-          <Bot className="h-4 w-4 text-white" />
+      <div className="flex items-start gap-2 sm:gap-3 max-w-[95%] sm:max-w-[90%]">
+        <div className="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-full flex items-center justify-center shadow-md border border-emerald-400/30">
+          <Bot className="h-3 w-3 sm:h-4 sm:w-4 text-white" />
         </div>
         <div className="flex items-center gap-2 bg-slate-800/50 border border-slate-700/50 rounded-lg px-3 py-2">
           <span className="text-sm text-slate-400">No content</span>
@@ -187,12 +187,12 @@ export function MessageItem({
 
   // Regular AI message display with content
   return (
-    <div className="flex items-start gap-3 max-w-[90%]">
-      <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-full flex items-center justify-center shadow-md border border-emerald-400/30">
-        <Bot className="h-4 w-4 text-white" />
+    <div className="flex items-start gap-2 sm:gap-3 max-w-[95%] sm:max-w-[90%]">
+      <div className="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-full flex items-center justify-center shadow-md border border-emerald-400/30">
+        <Bot className="h-3 w-3 sm:h-4 sm:w-4 text-white" />
       </div>
 
-      <div className="flex-1 bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700/50 rounded-2xl rounded-tl-sm p-4 shadow-lg relative group">
+      <div className="flex-1 bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700/50 rounded-2xl rounded-tl-sm p-2 sm:p-4 shadow-lg relative group">
         {/* Activity Timeline */}
         {messageEvents && messageEvents.has(message.id) && (
           <ActivityTimeline

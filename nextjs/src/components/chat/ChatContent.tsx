@@ -13,7 +13,7 @@ export function ChatContent(): React.JSX.Element {
   const { messages } = useChatContext();
 
   return (
-    <div className={`h-full ${messages.length === 0 ? "flex" : ""}`}>
+    <div className={`flex-1 min-h-0 overflow-y-auto ${messages.length === 0 ? "flex flex-col" : ""}`}>
       {messages.length === 0 ? <EmptyState /> : <MessageArea />}
     </div>
   );
