@@ -138,9 +138,8 @@ export function UserIdInput({
             onKeyDown={handleKeyPress}
             onBlur={handleInputBlur}
             placeholder="Enter user ID"
-            className={`w-32 text-xs bg-slate-800 text-slate-100 border-slate-600 focus:border-emerald-500 focus:ring-emerald-500/20 ${
-              !isValid ? "border-red-500" : ""
-            }`}
+            className={`w-full sm:w-32 text-xs bg-slate-800 text-slate-100 border-slate-600 focus:border-emerald-500 focus:ring-emerald-500/20 ${!isValid ? "border-red-500" : ""
+              }`}
             disabled={isLoading}
           />
           <Button

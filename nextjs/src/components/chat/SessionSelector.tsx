@@ -233,20 +233,20 @@ export function SessionSelector({
         <div className="flex items-center gap-2">
           <span className="text-xs text-slate-400">Session:</span>
           <Select value={currentSessionId} onValueChange={handleSessionSelect}>
-            <SelectTrigger className="w-44 h-12 text-xs bg-slate-700/50 border-slate-600/50 text-slate-100 hover:bg-slate-600/50 focus:border-emerald-500 px-4 py-1">
+            <SelectTrigger className="w-full sm:w-44 h-12 text-xs bg-slate-700/50 border-slate-600/50 text-slate-100 hover:bg-slate-600/50 focus:border-emerald-500 px-4 py-1">
               <SelectValue
                 placeholder={
                   isLoadingSessions
                     ? "Loading sessions..."
                     : sessionError
-                    ? "Error loading sessions"
-                    : sessions.length === 0
-                    ? "Create your first session"
-                    : "Select session"
+                      ? "Error loading sessions"
+                      : sessions.length === 0
+                        ? "Create your first session"
+                        : "Select session"
                 }
               />
             </SelectTrigger>
-            <SelectContent className="bg-slate-800 border-slate-600 min-w-44">
+            <SelectContent className="bg-slate-800 border-slate-600 min-w-full sm:min-w-44">
               {/* Loading state */}
               {isLoadingSessions && (
                 <div className="flex items-center gap-2 p-3 text-slate-400">
