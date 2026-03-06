@@ -31,8 +31,8 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="relative flex min-h-[100dvh] flex-col">
-            <main className="flex-1 overflow-x-hidden">{children}</main>
+          <div className="relative flex h-[100dvh] flex-col overflow-hidden">
+            <main className="flex-1 min-h-0 overflow-hidden">{children}</main>
           </div>
           <Toaster />
         </ThemeProvider>

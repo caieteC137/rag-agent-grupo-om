@@ -4,7 +4,7 @@ import { ChatContainer } from "@/components/chat/ChatContainer";
 
 export default function HomePage(): React.JSX.Element {
   return (
-    <div className="flex flex-col min-h-[100dvh]">
+    <div className="flex flex-col h-[100dvh] overflow-hidden">
       <Suspense fallback={<div>Loading chat...</div>}>
         <ChatProvider>
           <ChatContainer />
