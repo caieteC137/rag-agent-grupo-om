@@ -9,8 +9,8 @@ import { Target, ListChecks, CheckCircle } from "lucide-react";
  */
 export function EmptyState(): React.JSX.Element {
   return (
-    <div className="flex-1 flex flex-col items-center justify-start sm:justify-center p-4 sm:p-6 text-center pt-32 sm:pt-4 min-h-fit sm:min-h-[60vh]">
-      <div className="max-w-4xl w-full space-y-4 sm:space-y-8">
+    <div className="flex-1 flex flex-col items-center p-4 sm:p-6 text-center overflow-y-auto w-full">
+      <div className="max-w-4xl w-full space-y-8 my-auto py-4 sm:py-8">
         {/* Main header */}
         <div className="space-y-4">
           <div className="flex items-center justify-center space-x-3">

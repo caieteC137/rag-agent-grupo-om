@@ -12,7 +12,7 @@ import { ChatInput } from "./ChatInput";
  */
 export function ChatContainer(): React.JSX.Element {
   return (
-    <div className="min-h-[100dvh] flex flex-col bg-slate-900 relative">
+    <div className="h-[100dvh] flex flex-col bg-slate-900 relative">
       <BackendHealthChecker>
         {/* Fixed background */}
         <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 pointer-events-none"></div>
@@ -23,7 +23,7 @@ export function ChatContainer(): React.JSX.Element {
         </div>
 
         {/* Scrollable Messages Area - takes remaining space */}
-        <div className="relative z-10 flex-1 min-h-0">
+        <div className="relative z-10 flex-1 min-h-0 flex flex-col">
           <ChatContent />
         </div>
 

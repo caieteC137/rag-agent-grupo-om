@@ -38,65 +38,67 @@ export function MessageItem({
   // Human message rendering
   if (message.type === "human") {
     return (
-      <div className="flex items-start gap-2 sm:gap-3 max-w-[95%] sm:max-w-[85%] ml-auto">
-        <div className="bg-gradient-to-br from-blue-600 to-blue-700 text-white p-2 sm:p-4 rounded-2xl rounded-tr-sm shadow-lg border border-blue-500/20">
-          <ReactMarkdown
-            components={{
-              ...mdComponents,
-              // Override styles for human messages (white text)
-              p: ({ children, ...props }) => (
-                <p
-                  className="mb-2 leading-relaxed text-white last:mb-0"
-                  {...props}
-                >
-                  {children}
-                </p>
-              ),
-              h1: ({ children, ...props }) => (
-                <h1
-                  className="text-xl font-bold mb-3 text-white leading-tight"
-                  {...props}
-                >
-                  {children}
-                </h1>
-              ),
-              h2: ({ children, ...props }) => (
-                <h2
-                  className="text-lg font-semibold mb-2 text-white leading-tight"
-                  {...props}
-                >
-                  {children}
-                </h2>
-              ),
-              h3: ({ children, ...props }) => (
-                <h3
-                  className="text-base font-medium mb-2 text-white leading-tight"
-                  {...props}
-                >
-                  {children}
-                </h3>
-              ),
-              code: ({ children, ...props }) => (
-                <code
-                  className="bg-blue-800/50 text-blue-100 px-1.5 py-0.5 rounded text-sm font-mono"
-                  {...props}
-                >
-                  {children}
-                </code>
-              ),
-              strong: ({ children, ...props }) => (
-                <strong className="font-semibold text-white" {...props}>
-                  {children}
-                </strong>
-              ),
-            }}
-            remarkPlugins={[remarkGfm]}
-          >
-            {message.content}
-          </ReactMarkdown>
-        </div>
-        <div className="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 bg-blue-600 rounded-full flex items-center justify-center shadow-md border border-blue-500/30">
-          <User className="h-3 w-3 sm:h-4 sm:w-4 text-white" />
+      <div className="flex w-full justify-end">
+        <div className="flex items-start gap-2 sm:gap-3 max-w-[95%] sm:max-w-[85%]">
+          <div className="bg-gradient-to-br from-blue-600 to-blue-700 text-white p-2 sm:p-4 rounded-2xl rounded-tr-sm shadow-lg border border-blue-500/20">
+            <ReactMarkdown
+              components={{
+                ...mdComponents,
+                // Override styles for human messages (white text)
+                p: ({ children, ...props }) => (
+                  <p
+                    className="mb-2 leading-relaxed text-white last:mb-0"
+                    {...props}
+                  >
+                    {children}
+                  </p>
+                ),
+                h1: ({ children, ...props }) => (
+                  <h1
+                    className="text-xl font-bold mb-3 text-white leading-tight"
+                    {...props}
+                  >
+                    {children}
+                  </h1>
+                ),
+                h2: ({ children, ...props }) => (
+                  <h2
+                    className="text-lg font-semibold mb-2 text-white leading-tight"
+                    {...props}
+                  >
+                    {children}
+                  </h2>
+                ),
+                h3: ({ children, ...props }) => (
+                  <h3
+                    className="text-base font-medium mb-2 text-white leading-tight"
+                    {...props}
+                  >
+                    {children}
+                  </h3>
+                ),
+                code: ({ children, ...props }) => (
+                  <code
+                    className="bg-blue-800/50 text-blue-100 px-1.5 py-0.5 rounded text-sm font-mono"
+                    {...props}
+                  >
+                    {children}
+                  </code>
+                ),
+                strong: ({ children, ...props }) => (
+                  <strong className="font-semibold text-white" {...props}>
+                    {children}
+                  </strong>
+                ),
+              }}
+              remarkPlugins={[remarkGfm]}
+            >
+              {message.content}
+            </ReactMarkdown>
+          </div>
+          <div className="flex-shrink-0 w-6 h-6 sm:w-8 sm:h-8 bg-blue-600 rounded-full flex items-center justify-center shadow-md border border-blue-500/30">
+            <User className="h-3 w-3 sm:h-4 sm:w-4 text-white" />
+          </div>
         </div>
       </div>
     );

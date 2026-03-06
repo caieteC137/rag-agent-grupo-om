@@ -34,7 +34,7 @@ export function MessageArea(): React.JSX.Element {
   };
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col flex-1 min-h-0">
       {/* Session History Loading States */}
       <SessionHistory
         isLoadingHistory={isLoadingHistory}
