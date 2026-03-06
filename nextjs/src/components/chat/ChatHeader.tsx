@@ -21,7 +21,7 @@ export function ChatHeader(): React.JSX.Element {
   } = useChatContext();
 
   return (
-    <div className="relative z-10 flex-shrink-0 border-b border-slate-700/50 bg-slate-800/80 backdrop-blur-sm">
+    <div className="flex-shrink-0 border-b border-slate-700/50 bg-slate-800/80 backdrop-blur-sm">
       <div className="max-w-5xl mx-auto w-full flex flex-col sm:flex-row sm:justify-between sm:items-center p-2 sm:p-4 gap-2 sm:gap-4">
         {/* Left side - App branding */}
         <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1 overflow-hidden">
