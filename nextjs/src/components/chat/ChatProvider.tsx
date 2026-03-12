@@ -16,6 +16,7 @@ import { Message } from "@/types";
 import { ProcessedEvent } from "@/components/ActivityTimeline";
 import { toast } from "sonner";
 import { loadSessionHistoryAction } from "@/lib/actions/session-history-actions";
+import { CorpusInfo } from "@/lib/corpus_to_instruction";
 
 // Context value interface - consolidates all chat state and actions
 export interface ChatContextValue {
@@ -38,6 +39,10 @@ export interface ChatContextValue {
   handleUserIdConfirm: (confirmedUserId: string) => void;
   handleCreateNewSession: (sessionUserId: string) => Promise<void>;
   handleSessionSwitch: (newSessionId: string) => void;
+
+  // Corpus state
+  selectedCorpus: CorpusInfo | null;
+  setSelectedCorpus: (corpus: CorpusInfo | null) => void;
 
   // Message actions
   handleSubmit: (
@@ -69,6 +74,9 @@ export function ChatProvider({
 
   // Session history loading state
   const [isLoadingHistory, setIsLoadingHistory] = useState(false);
+  
+  // Corpus state
+  const [selectedCorpus, setSelectedCorpus] = useState<CorpusInfo | null>(null);
 
   // Consolidate all hooks
   const {
@@ -331,7 +339,7 @@ export function ChatProvider({
           );
         }
 
-        // Add user message to chat immediately
+        // Add user message to chat immediately (only showing the clean query)
         const userMessage: Message = {
           type: "human",
           content: query,
@@ -340,8 +348,16 @@ export function ChatProvider({
         };
         addMessage(userMessage);
 
+        // Submits the actual payload to the streaming manager.
+        // We inject the corpus instructions here since server-side state is separated 
+        // from the frontend state architecture.
+        let backendQuery = query;
+        if (selectedCorpus) {
+          backendQuery = `${query}\n\n[INSTRUÇÃO DO SISTEMA - NÃO RESPONDA ISSO DIRETAMENTE, APENAS USE COMO CONTEXTO]\nO usuário selecionou a base de conhecimento(corpus) com Resource Name: "${selectedCorpus.name}" e Display Name: "${selectedCorpus.displayName}". TODAS as suas buscas através da tool rag_query DEVEM usar o \`corpus_name\` como exatamente "${selectedCorpus.name}". Não pergunte qual usar e não passe string vazia.`;
+        }
+
         // Submit message for streaming - the backend will provide AI response
-        await streamingManager.submitMessage(query);
+        await streamingManager.submitMessage(backendQuery);
       } catch (error) {
         console.error("Error submitting message:", error);
         // Don't create fake error messages - let the UI handle the error state
@@ -372,6 +388,10 @@ export function ChatProvider({
     handleUserIdConfirm,
     handleCreateNewSession,
     handleSessionSwitch,
+
+    // Corpus state
+    selectedCorpus,
+    setSelectedCorpus,
 
     // Message actions
     handleSubmit,

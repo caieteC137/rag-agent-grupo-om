@@ -5,6 +5,7 @@
 
 import { Message } from "@/types";
 import { ProcessedEvent } from "@/components/ActivityTimeline";
+import { CorpusInfo } from "@/lib/corpus_to_instruction";
 
 /**
  * Parsed SSE data structure returned by the parser
@@ -89,6 +90,7 @@ export interface StreamingAPIPayload {
   message: string;
   userId: string;
   sessionId: string;
+  corpus?: CorpusInfo | null;
 }
 
 /**

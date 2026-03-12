@@ -2,6 +2,7 @@
 
 import { InputForm } from "@/components/InputForm";
 import { useChatContext } from "@/components/chat/ChatProvider";
+import { CorpusSelector } from "@/components/chat/CorpusSelector";
 
 /**
  * ChatInput - Input form wrapper with context integration
@@ -9,15 +10,17 @@ import { useChatContext } from "@/components/chat/ChatProvider";
  * Extracted from ChatMessagesView input section
  */
 export function ChatInput(): React.JSX.Element {
-  const { handleSubmit, isLoading } = useChatContext();
+  const { handleSubmit, isLoading, selectedCorpus } = useChatContext();
 
   return (
     <div className="relative z-10 flex-shrink-0 border-t-2 border-slate-600/80 bg-slate-900/95 backdrop-blur-md shadow-2xl shadow-black/40">
-      <div className="max-w-4xl mx-auto w-full p-2 sm:p-4 pt-3 sm:pt-5">
+      <div className="max-w-4xl mx-auto w-full p-2 sm:p-4 pt-3 sm:pt-5 flex flex-col sm:flex-row gap-4 items-end">
+        <CorpusSelector />
         <InputForm
           onSubmit={handleSubmit}
           isLoading={isLoading}
           context="chat"
+          isCorpusSelected={!!selectedCorpus}
         />
       </div>
     </div>
