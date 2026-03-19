@@ -1,0 +1,37 @@
+# =============================================================
+# Dockerfile.frontend.prod — PRODUÇÃO
+# =============================================================
+
+# Stage 1 — instala dependências e faz o build
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+COPY nextjs/package*.json ./
+RUN npm ci
+
+COPY nextjs/ .
+RUN npm run build
+
+# Stage 2 — imagem final só com o necessário para rodar
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Copia o build e dependências do stage anterior
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/next.config.* ./
+
+# Instala dependências de produção + typescript (necessário para next.config.ts)
+RUN npm ci --only=production && npm install --save-dev typescript
+
+# Garante que o appuser tem permissão sobre o diretório
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup \
+    && chown -R appuser:appgroup /app
+
+USER appuser
+
+EXPOSE 3000
+
+CMD ["npm", "start"]

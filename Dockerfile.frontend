@@ -1,0 +1,15 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Copia arquivos de dependências primeiro (cache de layers)
+COPY nextjs/package*.json ./
+
+RUN npm install
+
+# Copia o restante do código do Next.js
+COPY nextjs/ .
+
+EXPOSE 3000
+
+CMD ["npm", "run", "dev"]

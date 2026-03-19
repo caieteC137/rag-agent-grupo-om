@@ -24,8 +24,8 @@ export async function GET(request: NextRequest) {
       }
     }
     
-    let projectId = process.env.GOOGLE_CLOUD_PROJECT || "deploy-agent-om";
-    let location = process.env.GOOGLE_CLOUD_LOCATION || "europe-west1";
+    const projectId = process.env.GOOGLE_CLOUD_PROJECT || "deploy-agent-om";
+    const location = process.env.GOOGLE_CLOUD_LOCATION || "europe-west1";
     let baseUrl = `https://${location}-aiplatform.googleapis.com`;
     let projectPath = `projects/${projectId}/locations/${location}`;
     

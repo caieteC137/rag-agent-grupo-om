@@ -1,0 +1,21 @@
+# ============================================================
+# Dockerfile.backend — DESENVOLVIMENTO
+# Usar com: docker compose up --build
+# ============================================================
+
+FROM python:3.12-slim
+
+WORKDIR /app
+
+# Copia o requirements.txt gerado pelo make deploy-adk
+COPY app/requirements.txt .
+RUN pip install -r requirements.txt
+
+# Copia o restante do código
+COPY app/ ./app/
+
+EXPOSE 8000
+
+# --allow_origins=* permite qualquer origem (ok em dev, nunca em prod)
+# --host=0.0.0.0 deixa o servidor acessível fora do container
+CMD ["adk", "api_server", "app", "--allow_origins=*", "--host=0.0.0.0"]

@@ -195,7 +195,7 @@ def get_deployment_config() -> DeploymentConfiguration:
 
     # Check requirements file exists
     requirements_file = os.environ.get(
-        "REQUIREMENTS_FILE", ".requirements.txt")
+        "REQUIREMENTS_FILE", "requirements.txt")
     if not Path(requirements_file).exists():
         raise ValueError(
             f"❌ Requirements file not found: {requirements_file}\n"

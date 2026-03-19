@@ -27,3 +27,8 @@ lint:
 deploy-adk:
 	uv export --no-hashes --no-header --no-dev --no-emit-project --no-annotate > .requirements.txt 2>/dev/null || \
 	uv export --no-hashes --no-header --no-dev --no-emit-project > .requirements.txt && uv run app/agent_engine_app.py
+
+docker-build:
+	uv export --no-hashes --no-header --no-dev --no-emit-project --no-annotate > app/requirements.txt 2>/dev/null || \
+	uv export --no-hashes --no-header --no-dev --no-emit-project > app/requirements.txt
+	docker compose up --build
