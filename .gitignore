@@ -241,4 +241,4 @@ Thumbs.db
 
 # Other
 web/
-.deploy-cloudrun.sh
+deploy-cloudrun.sh
