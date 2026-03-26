@@ -1,0 +1,110 @@
+steps:
+  # --- PASSO 1: Gerar requirements.txt (como no script) ---
+  - name: "python:3.11"
+    id: "generate-requirements"
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        pip install --upgrade pip
+        pip install pipenv
+        uv export --no-hashes --no-header --no-dev --no-emit-project --no-annotate > app/requirements.txt 2>/dev/null || \
+        uv export --no-hashes --no-header --no-dev --no-emit-project > app/requirements.txt
+
+  # --- PASSO 2: Build Backend ---
+  - name: "gcr.io/cloud-builders/docker"
+    id: "build-backend"
+    args:
+      [
+        "build",
+        "-f",
+        "app/Dockerfile.backend.prod",
+        "--build-arg",
+        "NODE_ENV=production",
+        "--build-arg",
+        "PYTHONUNBUFFERED=1",
+        "-t",
+        "europe-west1-docker.pkg.dev/$PROJECT_ID/rag-grupo-om/backend:latest",
+        ".",
+      ]
+
+  # --- PASSO 3: Push Backend ---
+  - name: "gcr.io/cloud-builders/docker"
+    id: "push-backend"
+    args:
+      [
+        "push",
+        "europe-west1-docker.pkg.dev/$PROJECT_ID/rag-grupo-om/backend:latest",
+      ]
+
+  # --- PASSO 4: Build Frontend ---
+  - name: "gcr.io/cloud-builders/docker"
+    id: "build-frontend"
+    args:
+      [
+        "build",
+        "-f",
+        "nextjs/Dockerfile.frontend.prod",
+        "--build-arg",
+        "NODE_ENV=production",
+        "-t",
+        "europe-west1-docker.pkg.dev/$PROJECT_ID/rag-grupo-om/frontend:latest",
+        ".",
+      ]
+
+  # --- PASSO 5: Push Frontend ---
+  - name: "gcr.io/cloud-builders/docker"
+    id: "push-frontend"
+    args:
+      [
+        "push",
+        "europe-west1-docker.pkg.dev/$PROJECT_ID/rag-grupo-om/frontend:latest",
+      ]
+
+  # --- PASSO 6: Deploy Backend no Cloud Run ---
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk:slim"
+    id: "deploy-backend"
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        ENV_VARS=$(grep -v '^\s*#' app/.env | grep -v '^\s*$' | grep '=' | sed 's/#.*//' | sed 's/[[:space:]]*$//' | grep -v '=$' | tr '\n' ',' | sed 's/,$//')
+        gcloud run deploy rag-grupo-om-backend \
+          --image=europe-west1-docker.pkg.dev/$PROJECT_ID/rag-grupo-om/backend:latest \
+          --project=$PROJECT_ID \
+          --region=europe-west1 \
+          --service-account=rag-grupo-om-sa@deploy-agent-om.iam.gserviceaccount.com \
+          --set-env-vars="PYTHONUNBUFFERED=1,$ENV_VARS" \
+          --allow-unauthenticated \
+          --port=8000 \
+          --memory=1Gi \
+          --cpu=1 \
+          --min-instances=0 \
+          --max-instances=3
+        echo "BACKEND_URL=$(gcloud run services describe rag-grupo-om-backend --project=$PROJECT_ID --region=europe-west1 --format='value(status.url)')" >> $BUILD_ARTIFACTS/env.txt
+
+  # --- PASSO 7: Deploy Frontend no Cloud Run ---
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk:slim"
+    id: "deploy-frontend"
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        source $BUILD_ARTIFACTS/env.txt
+        ENV_VARS=$(grep -v '^\s*#' app/.env | grep -v '^\s*$' | grep '=' | sed 's/#.*//' | sed 's/[[:space:]]*$//' | grep -v '=$' | tr '\n' ',' | sed 's/,$//')
+        gcloud run deploy rag-grupo-om-frontend \
+          --image=europe-west1-docker.pkg.dev/$PROJECT_ID/rag-grupo-om/frontend:latest \
+          --project=$PROJECT_ID \
+          --region=europe-west1 \
+          --service-account=rag-grupo-om-sa@deploy-agent-om.iam.gserviceaccount.com \
+          --set-env-vars="NEXT_PUBLIC_API_URL=/api,BACKEND_URL=$BACKEND_URL,$ENV_VARS" \
+          --allow-unauthenticated \
+          --port=3000 \
+          --memory=1Gi \
+          --cpu=1 \
+          --min-instances=0 \
+          --max-instances=3
+
+images:
+  - "europe-west1-docker.pkg.dev/$PROJECT_ID/rag-grupo-om/backend:latest"
+  - "europe-west1-docker.pkg.dev/$PROJECT_ID/rag-grupo-om/frontend:latest"
