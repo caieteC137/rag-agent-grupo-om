@@ -241,3 +241,5 @@ Thumbs.db
 
 # Other
 web/
+NEXTJS_VERCEL_DEPLOYMENT_GUIDE.md
+deploy-cloudrun.sh
