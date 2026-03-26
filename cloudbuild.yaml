@@ -18,7 +18,7 @@ steps:
       [
         "build",
         "-f",
-        "app/Dockerfile.backend.prod",
+        "Dockerfile.backend.prod",
         "--build-arg",
         "NODE_ENV=production",
         "--build-arg",
@@ -44,7 +44,7 @@ steps:
       [
         "build",
         "-f",
-        "nextjs/Dockerfile.frontend.prod",
+        "Dockerfile.frontend.prod",
         "--build-arg",
         "NODE_ENV=production",
         "-t",
