@@ -5,8 +5,9 @@
 
 set -e
 
-# Disable MSYS path conversion to prevent mangling of https:// and /api URLs in Git Bash
-export MSYS_NO_PATHCONV=1
+# Disable MSYS path conversion only for gcloud's --set-env-vars argument to prevent mangling URLs
+export MSYS2_ARG_CONV_EXCL="--set-env-vars="
+
 PROJECT_ID="deploy-agent-om"
 REGION="europe-west1"
 APP_NAME="rag-grupo-om"
