@@ -40,7 +40,7 @@ export async function processSseEventData(
   currentAgentRef: { current: string },
   setCurrentAgent: (agent: string) => void
 ): Promise<void> {
-  const { textParts, thoughtParts, agent, functionCall, functionResponse } =
+  const { textParts, thoughtParts, agent, isPartial, functionCall, functionResponse } =
     extractDataFromSSE(jsonData);
 
   // Use frontend-generated aiMessageId for consistent message correlation
@@ -99,7 +99,8 @@ export async function processSseEventData(
       agent,
       actualMessageId,
       accumulatedTextRef,
-      callbacks.onMessageUpdate
+      callbacks.onMessageUpdate,
+      isPartial
     );
   }
 }
@@ -303,8 +304,35 @@ async function processTextContent(
   agent: string,
   aiMessageId: string,
   accumulatedTextRef: { current: string },
-  onMessageUpdate: (message: Message) => void
+  onMessageUpdate: (message: Message) => void,
+  isPartial?: boolean
 ): Promise<void> {
+
+  // A resposta completa final (is_final_response no ADK) vem com partial: false no payload,
+  // ou nulo/ausente (undefined) dependendo do alias generator.
+  // Como ela já inclui todo o texto da resposta desta iteração da tool,
+  // devemos SUBSTITUIR o texto em vez de concatenar, evitando texto duplicado na UI
+  if (isPartial !== true) {
+    const finalContent = textParts.join("");
+    
+    // Atualiza com a versão completa final se a nova tiver conteúdo
+    if (finalContent.length > 0) {
+      accumulatedTextRef.current = finalContent;
+    }
+    
+    const finalMessage: Message = {
+      type: "ai",
+      content: accumulatedTextRef.current.trim(),
+      id: aiMessageId,
+      timestamp: new Date(),
+    };
+
+    flushSync(() => {
+      onMessageUpdate(finalMessage);
+    });
+    return;
+  }
+
   // Process each text chunk using OFFICIAL ADK TERMINATION SIGNAL PATTERN
   for (const text of textParts) {
     const currentAccumulated = accumulatedTextRef.current;
@@ -354,3 +382,4 @@ async function processTextContent(
     });
   }
 }
+
