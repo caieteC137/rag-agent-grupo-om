@@ -118,6 +118,7 @@ export function extractDataFromSSE(data: string): ParsedSSEData {
       textParts,
       thoughtParts,
       agent,
+      isPartial: parsed.partial,
       functionCall,
       functionResponse,
     };
@@ -148,6 +149,7 @@ function handleSSEParsingError(data: string, error: unknown): ParsedSSEData {
     textParts: [],
     thoughtParts: [],
     agent: "",
+    isPartial: undefined,
     functionCall: undefined,
     functionResponse: undefined,
   };

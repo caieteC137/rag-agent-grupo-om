@@ -329,8 +329,7 @@ function reconstructTimelineFromEvents(events: AdkEvent[]): {
         messageCorrelation[messageIndex].push(thoughtActivity);
 
         console.log(
-          `✅ [TIMELINE] Created thought activity ${sectionIndex + 1}/${
-            thoughtSections.length
+          `✅ [TIMELINE] Created thought activity ${sectionIndex + 1}/${thoughtSections.length
           } for event ${event.id}:`,
           {
             title: title,
@@ -479,13 +478,19 @@ export function convertAdkEventsToMessages(
           ? event.author
           : undefined;
 
+      // Strip injected system instructions from user messages if they exist
+      let cleanContent = content.trim();
+      if (messageType === "human" && cleanContent.includes("[INSTRUÇÃO DO SISTEMA")) {
+        cleanContent = cleanContent.split("\n\n[INSTRUÇÃO DO SISTEMA")[0].trim();
+      }
+
       const message: BaseMessage & {
         agent?: string;
         timelineActivities?: TimelineActivity[];
       } = {
         id: event.id,
         type: messageType,
-        content: content.trim(),
+        content: cleanContent,
         timestamp: new Date(event.timestamp),
         ...(agent && { agent }), // Only add agent field if it exists
       };

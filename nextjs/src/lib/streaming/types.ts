@@ -8,26 +8,6 @@ import { ProcessedEvent } from "@/components/ActivityTimeline";
 import { CorpusInfo } from "@/lib/corpus_to_instruction";
 
 /**
- * Parsed SSE data structure returned by the parser
- */
-export interface ParsedSSEData {
-  messageId?: string; // Message ID from backend
-  textParts: string[];
-  thoughtParts: string[];
-  agent: string;
-  functionCall?: {
-    name: string;
-    args: Record<string, unknown>;
-    id: string;
-  };
-  functionResponse?: {
-    name: string;
-    response: Record<string, unknown>;
-    id: string;
-  };
-}
-
-/**
  * Raw SSE parsed JSON structure from the backend
  */
 export interface RawSSEData {
@@ -49,8 +29,29 @@ export interface RawSSEData {
     }>;
   };
   author?: string;
+  partial?: boolean;
 }
 
+/**
+ * Parsed SSE data structure returned by the parser
+ */
+export interface ParsedSSEData {
+  messageId?: string; // Message ID from backend
+  textParts: string[];
+  thoughtParts: string[];
+  agent: string;
+  isPartial?: boolean;
+  functionCall?: {
+    name: string;
+    args: Record<string, unknown>;
+    id: string;
+  };
+  functionResponse?: {
+    name: string;
+    response: Record<string, unknown>;
+    id: string;
+  };
+}
 /**
  * SSE connection state
  */
