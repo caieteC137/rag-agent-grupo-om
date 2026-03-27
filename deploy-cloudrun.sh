@@ -50,8 +50,8 @@ uv export --no-hashes --no-header --no-dev --no-emit-project > app/requirements.
 # PASSO 5 — Build das imagens de produção
 # =============================================================
 echo "🔨 Buildando imagens..."
-docker build -f app/Dockerfile.backend.prod -t $BACKEND_IMAGE .
-docker build -f nextjs/Dockerfile.frontend.prod -t $FRONTEND_IMAGE .
+docker build -f Dockerfile.backend.prod -t $BACKEND_IMAGE .
+docker build -f Dockerfile.frontend.prod -t $FRONTEND_IMAGE .
 
 # =============================================================
 # PASSO 6 — Push para o Artifact Registry
