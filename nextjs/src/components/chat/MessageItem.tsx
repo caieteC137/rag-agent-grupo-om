@@ -4,7 +4,6 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { MarkdownRenderer, mdComponents } from "./MarkdownRenderer";
 import {
-  ActivityTimeline,
   ProcessedEvent,
 } from "@/components/ActivityTimeline";
 import { Copy, CopyCheck, Loader2, Bot, User } from "lucide-react";
@@ -120,14 +119,6 @@ export function MessageItem({
         </div>
 
         <div className="flex-1 bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700/50 rounded-2xl rounded-tl-sm p-2 sm:p-4 shadow-lg">
-          {/* Activity Timeline during thinking */}
-          {hasTimelineEvents && (
-            <ActivityTimeline
-              processedEvents={messageEvents.get(message.id) || []}
-              isLoading={isLoading}
-            />
-          )}
-
           {/* Show content if it exists while loading */}
           {message.content && (
             <div className="prose prose-invert max-w-none mb-3">
@@ -160,11 +151,6 @@ export function MessageItem({
           </div>
 
           <div className="flex-1 bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700/50 rounded-2xl rounded-tl-sm p-2 sm:p-4 shadow-lg">
-            <ActivityTimeline
-              processedEvents={messageEvents.get(message.id) || []}
-              isLoading={isLoading}
-            />
-
             {/* Show thinking indicator */}
             <div className="flex items-center gap-2 bg-slate-800/50 border border-slate-700/50 rounded-lg px-3 py-2 mt-2">
               <span className="text-sm text-slate-400">🤔 Thinking...</span>
@@ -195,14 +181,6 @@ export function MessageItem({
       </div>
 
       <div className="flex-1 bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700/50 rounded-2xl rounded-tl-sm p-2 sm:p-4 shadow-lg relative group">
-        {/* Activity Timeline */}
-        {messageEvents && messageEvents.has(message.id) && (
-          <ActivityTimeline
-            processedEvents={messageEvents.get(message.id) || []}
-            isLoading={isLoading}
-          />
-        )}
-
         {/* Message content */}
         <div className="prose prose-invert max-w-none">
           <MarkdownRenderer content={message.content} />
