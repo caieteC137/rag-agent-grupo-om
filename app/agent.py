@@ -5,6 +5,10 @@ from google.adk.agents import LlmAgent
 from google.adk.planners import BuiltInPlanner
 
 from app.config import config
+from app.tools.add_data import add_data
+from app.tools.create_corpus import create_corpus
+from app.tools.delete_corpus import delete_corpus
+from app.tools.delete_document import delete_document
 from app.tools.get_corpus_info import get_corpus_info
 from app.tools.list_corpora import list_corpora
 from app.tools.rag_query import rag_query
@@ -18,11 +22,15 @@ root_agent = LlmAgent(
         get_corpus_info,
         list_corpora,
         rag_query,
+        add_data,
+        create_corpus,
+        delete_corpus,
+        delete_document,
     ],
     #planner=BuiltInPlanner(
     #   thinking_config=genai_types.ThinkingConfig(include_thoughts=False)
     #),
-    instruction=f"""
+    instruction=rf"""
     # Vertex AI RAG Agent — Grupo OM
 
    CRITICAL IDENTITY RULE — HIGHEST PRIORITY:
