@@ -32,8 +32,11 @@ def migrate(dry_run: bool, corpus_filter: str | None) -> None:
     src = RagEngineProvider()
     dst = VertexVectorSearchProvider()
 
+    # 1. List from source (Europe)
+    import vertexai
+    vertexai.init(project=os.environ["GOOGLE_CLOUD_PROJECT"], location=src.location)
     corpora = src.list_corpora()
-    print(f"Found {len(corpora)} corpora in RAG Engine")
+    print(f"Found {len(corpora)} corpora in RAG Engine ({src.location})")
 
     for corpus in corpora:
         if corpus_filter and corpus_filter not in corpus.display_name:
@@ -41,6 +44,9 @@ def migrate(dry_run: bool, corpus_filter: str | None) -> None:
             continue
 
         print(f"\n── Migrating corpus: {corpus.display_name} ──")
+        
+        # Ensure we are in source region for listing documents
+        vertexai.init(project=os.environ["GOOGLE_CLOUD_PROJECT"], location=src.location)
         docs = src.list_documents(corpus.resource_name)
         print(f"   {len(docs)} documents")
 
@@ -49,12 +55,16 @@ def migrate(dry_run: bool, corpus_filter: str | None) -> None:
                 print(f"   [DRY-RUN] Would migrate: {doc.display_name} ({doc.source_uri})")
             continue
 
-        # Create corresponding corpus in new provider
+        # 2. Create and ingest in destination (US)
+        vertexai.init(project=os.environ["GOOGLE_CLOUD_PROJECT"], location="us-central1")
         new_corpus = dst.create_corpus(corpus.display_name)
         print(f"   Created new corpus: {new_corpus.resource_name}")
 
         for doc in docs:
             print(f"   Ingesting: {doc.display_name}")
+            
+            # Ensure we are in destination region for ingestion
+            vertexai.init(project=os.environ["GOOGLE_CLOUD_PROJECT"], location="us-central1")
             result = dst.ingest(
                 corpus_resource_name=new_corpus.resource_name,
                 paths=[doc.source_uri],

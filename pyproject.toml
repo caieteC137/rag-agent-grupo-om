@@ -12,7 +12,11 @@ authors = [
 ]
 dependencies = [
     "google-adk==1.6.1",
-    "python-dotenv",  
+    "python-dotenv",
+    "google-cloud-firestore",
+    "google-cloud-aiplatform",
+    "google-cloud-storage",
+    "pdfminer.six",
 ]
 
 requires-python = ">=3.10,<3.13"

@@ -24,7 +24,7 @@ from .provider import (
 logger = logging.getLogger(__name__)
 
 _PROJECT = os.getenv("GOOGLE_CLOUD_PROJECT", "")
-_LOCATION = os.getenv("GOOGLE_CLOUD_LOCATION", "us-central1")
+_LOCATION = os.getenv("RAG_ENGINE_LOCATION") or os.getenv("GOOGLE_CLOUD_LOCATION", "us-central1")
 
 
 def _resource_name_pattern() -> re.Pattern[str]:
@@ -41,6 +41,12 @@ class RagEngineProvider:
     layer between the RAG Engine SDK and our canonical DTOs. If the SDK
     behaviour changes, only this file needs updating.
     """
+
+    def __init__(self, location: str | None = None) -> None:
+        self.location = location or _LOCATION
+        # Ensure vertexai is initialized for this location
+        import vertexai
+        vertexai.init(project=_PROJECT, location=self.location)
 
     # ── helpers ─────────────────────────────────────────────────────────────
 
@@ -59,7 +65,7 @@ class RagEngineProvider:
         corpus_id = name.split("/")[-1] if "/" in name else name
         corpus_id = re.sub(r"[^a-zA-Z0-9_-]", "_", corpus_id)
         return (
-            f"projects/{_PROJECT}/locations/{_LOCATION}"
+            f"projects/{_PROJECT}/locations/{self.location}"
             f"/ragCorpora/{corpus_id}"
         )
 
